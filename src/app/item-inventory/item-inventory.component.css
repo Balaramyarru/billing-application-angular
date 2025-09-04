@@ -1,0 +1,13 @@
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 30%;
+}
+
+.full-width-table {
+  width: 100%;
+}

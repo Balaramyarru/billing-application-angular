@@ -1,0 +1,303 @@
+/* Toolbar layout */
+.toolbar {
+  --gap: 12px;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: var(--gap);
+}
+
+.left-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.right-cluster {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.date-display .invoice-id {
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.cart-btn .cart-label {
+  margin-left: 6px;
+}
+
+/* Container */
+.invoice-container {
+  max-width: 1200px;
+  margin: 18px auto;
+  padding: 0 12px;
+}
+
+/* Fields */
+.header-section {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.field.w-50 {
+  min-width: 280px;
+}
+
+.modern-field .mdc-notched-outline__notch,
+.modern-field .mdc-notched-outline__leading,
+.modern-field .mdc-notched-outline__trailing {
+  border-radius: 12px !important;
+}
+
+.modern-field.mat-mdc-form-field {
+  --mdc-filled-text-field-container-shape: 12px;
+  --mdc-outlined-text-field-container-shape: 12px;
+}
+
+/* Search */
+.search-field {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* Table */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.pro-table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.pro-table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.price-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.price-chip {
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  transition: all .2s ease;
+}
+
+.price-chip.active {
+  background: #e0f2fe;
+  color: #0369a1;
+  outline: 1px solid #bae6fd;
+}
+
+.price-override.compact .mat-mdc-form-field-infix {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+/* Quantity buttons */
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  transition: background .2s ease;
+}
+.qty-btn:hover { background: #eef2f7; }
+
+.qty-display {
+  display: inline-block;
+  min-width: 24px;
+  text-align: center;
+  margin: 0 8px;
+  font-weight: 600;
+}
+
+/* Add button */
+.add-btn {
+  border-radius: 999px !important;
+}
+
+/* Checkout section */
+.checkout-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .header-section {
+    grid-template-columns: 1fr;
+  }
+  .title {
+    font-size: 1.1rem;
+  }
+  .right-cluster {
+    gap: 8px;
+  }
+  .date-display {
+    display: none; /* hide if too cramped on small screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+  }
+  .price-options {
+    gap: 6px;
+  }
+  .price-chip {
+    font-size: 12px;
+  }
+}
+
+/* Quantity control wrapper */
+.qty-wrapper {
+  display: inline-flex;
+  align-items: center;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 2px 6px;
+  min-width: 100px;
+  justify-content: space-between;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+}
+
+/* Minus/plus buttons */
+.qty-btn {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  border: 1px solid #d1d5db !important;
+  transition: all .2s ease;
+}
+
+.qty-btn:hover {
+  background: #f3f4f6 !important;
+  border-color: #9ca3af !important;
+}
+
+/* Quantity number */
+.qty-display {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+/* Modern dropdown style */
+.price-override.mat-mdc-form-field {
+  width: 140px; /* compact width */
+  --mdc-outlined-text-field-container-shape: 12px;
+  --mdc-outlined-text-field-outline-color: #d1d5db;
+  --mdc-outlined-text-field-hover-outline-color: #9ca3af;
+  --mdc-outlined-text-field-focus-outline-color: #2563eb;
+  margin-top: 4px;
+}
+
+.mat-mdc-select-value {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Dropdown panel */
+.mat-mdc-select-panel {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Color-coded options */
+.mat-mdc-option.sales-option {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.mat-mdc-option.wholesale-option {
+  color: #059669;
+  font-weight: 600;
+}
+
+.mat-mdc-option.purchase-option {
+  color: #d97706;
+  font-weight: 600;
+}
+.qty-btn mat-icon {
+  font-size: 18px;
+  font-weight: bold; /* make the + look thicker */
+  line-height: 1;
+}
+
+.qty-btn {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111827; /* dark color for visibility */
+}
+.icon-text {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+}
+.search-container {
+  display: flex;
+  justify-content: flex-end; /* push to right */
+  margin-bottom: 12px;
+}
+
+.search-box {
+  width: 220px; /* small size */
+  border-radius: 25px !important; /* round corners */
+  overflow: hidden;
+}
+
+.search-box .mat-mdc-form-field-outline {
+  border-radius: 25px !important;
+}
+
+.search-box input {
+  font-size: 14px;
+  padding-left: 5px;
+}

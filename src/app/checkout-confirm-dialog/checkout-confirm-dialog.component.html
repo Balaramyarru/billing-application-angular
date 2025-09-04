@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>Order Summary</h2>
+
+<mat-dialog-content>
+  <!-- Items List -->
+  <!-- Items Table -->
+<table mat-table [dataSource]="cartItems" class="mat-elevation-z2 full-width-table">
+  <!-- Item Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Item </th>
+    <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+  </ng-container>
+
+  <!-- Quantity Column -->
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Qty </th>
+    <td mat-cell *matCellDef="let item"> {{ item.quantity }} </td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let item"> ₹{{ item.price | number:'1.2-2' }} </td>
+  </ng-container>
+
+  <!-- Total Column -->
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef> Total </th>
+    <td mat-cell *matCellDef="let item"> ₹{{ (item.price * item.quantity) | number:'1.2-2' }} </td>
+  </ng-container>
+
+  <!-- Header + Rows -->
+  <tr mat-header-row *matHeaderRowDef="['name', 'quantity', 'price', 'total']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name', 'quantity', 'price', 'total']"></tr>
+</table>
+
+
+  <ng-template #emptyCart>
+    <p class="empty-message">🛒 Your cart is empty.</p>
+  </ng-template>
+
+  <!-- Breakdown Section -->
+ <!-- Breakdown Section -->
+<!-- Breakdown Section -->
+<div class="cart-breakdown">
+  <div>
+    <span>Subtotal:</span>
+    <span>₹{{ subtotal | number:'1.2-2' }}</span>
+  </div>
+
+  <div>
+    <span>Discount (10%):</span>
+    <span>
+      {{ isDiscountApplied ? ('-₹' + (discount | number:'1.2-2')) : 'NA' }}
+    </span>
+  </div>
+
+  <div>
+    <span>Tax (18%):</span>
+    <span>
+      {{ isTaxApplied ? ('+₹' + (tax | number:'1.2-2')) : 'NA' }}
+    </span>
+  </div>
+
+  <hr />
+
+  <div class="final-total">
+    <span>Final Total:</span>
+    <strong>₹{{ total | number:'1.2-2' }}</strong>
+  </div>
+</div>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="actions" *ngIf="cartItems.length > 0">
+  <button mat-stroked-button color="primary" (click)="editCart()">Edit Cart</button>
+  <button mat-raised-button color="accent" (click)="onCheckout()">Confirm Checkout</button>
+</mat-dialog-actions>

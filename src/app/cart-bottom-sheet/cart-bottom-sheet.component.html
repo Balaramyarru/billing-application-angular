@@ -1,0 +1,39 @@
+<!-- Discount & Tax Toggles -->
+<div class="toggle-section" *ngIf="cartItems.length > 0">
+  <mat-slide-toggle [(ngModel)]="applyDiscount" (change)="updateTotals()">
+    Apply Discount ({{ discountRate }}%)
+  </mat-slide-toggle>
+  <mat-slide-toggle [(ngModel)]="applyTax" (change)="updateTotals()">
+    Apply Tax ({{ taxRate }}%)
+  </mat-slide-toggle>
+</div>
+
+<!-- Price Breakdown -->
+<div class="total-section" *ngIf="cartItems.length > 0">
+  <div class="total-row subtotal">
+    <span>Subtotal:</span>
+    <span>{{ subtotal | currency:'INR' }}</span>
+  </div>
+  <div class="total-row discount" *ngIf="applyDiscount">
+    <span>Discount ({{ discountRate }}%):</span>
+    <span>- {{ discountAmount | currency:'INR' }}</span>
+  </div>
+  <div class="total-row tax" *ngIf="applyTax">
+    <span>Tax ({{ taxRate }}%):</span>
+    <span>+ {{ taxAmount | currency:'INR' }}</span>
+  </div>
+  <div class="total-row final">
+    <span>Final Total:</span>
+    <span>{{ finalTotal | currency:'INR' }}</span>
+  </div>
+  <!-- Action Buttons -->
+<div class="action-buttons" *ngIf="cartItems.length > 0">
+  <button mat-raised-button color="warn" (click)="clearCart()">
+    Clear Cart
+  </button>
+  <button mat-raised-button color="accent" (click)="checkout()">
+    Checkout
+  </button>
+</div>
+
+</div>

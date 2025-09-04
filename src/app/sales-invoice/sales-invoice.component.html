@@ -1,0 +1,146 @@
+<mat-toolbar class="toolbar">
+  <div class="left-cluster">
+    <mat-icon>receipt_long</mat-icon>
+  </div>
+
+  <div class="title">Sales Invoice</div>
+
+  <div>
+      <button mat-raised-button color="accent"
+            (click)="openCart()"
+            [matBadge]="totalCount"
+            matBadgeColor="warn"
+            matBadgeOverlap="false"
+            class="cart-btn">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="cart-label">Cart</span>
+    </button>
+  </div>
+
+  <div class="right-cluster">
+    <div class="date-display">
+      <span class="date">{{ now | date:'EEE, dd MMM yyyy' }}</span>
+      <span class="time">• {{ now | date:'hh:mm:ss a' }}</span>
+      
+    </div>
+
+  
+  </div>
+</mat-toolbar>
+
+<div class="invoice-container">
+<div><b><span class="invoice-id">Invoice ID: {{ invoiceId }}</span></b></div>
+<br>
+  <!-- Customer Info -->
+  <div class="header-section">
+    <mat-form-field appearance="outline" class="field w-50 modern-field">
+      <mat-label>Customer Name</mat-label>
+      <input matInput placeholder="Enter customer name" [(ngModel)]="customerName">
+      <button *ngIf="customerName" matSuffix mat-icon-button (click)="customerName=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field customer-type-field modern-field">
+      <mat-label>Customer Type</mat-label>
+      <mat-select [(value)]="customerType" (selectionChange)="onCustomerTypeChange()">
+        <mat-option *ngFor="let type of customerTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Search Items -->
+  <mat-form-field appearance="outline" class="search-field modern-field">
+    <mat-label>Search Items</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Search by name or code">
+    <button *ngIf="searchControl.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchControl.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Items Table -->
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="filteredItems" class="mat-elevation-z2 pro-table">
+
+      <!-- Item Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Item Name </th>
+        <td mat-cell *matCellDef="let item">{{ item.itemName }}</td>
+      </ng-container>
+
+      <!-- Code -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> Code </th>
+        <td mat-cell *matCellDef="let item">{{ item.itemCode }}</td>
+      </ng-container>
+
+      <!-- Price -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let item">
+          <div class="price-options">
+            <span class="price-chip" [class.active]="isDefaultPrice(item, 'sales')">
+              Sales: {{ item.salesRate | currency:'INR' }}
+            </span>
+            <span class="price-chip" [class.active]="isDefaultPrice(item, 'wholesale')">
+              Wholesale: {{ item.wholesaleRate | currency:'INR' }}
+            </span>
+            <span class="price-chip" [class.active]="isDefaultPrice(item, 'purchaseRate')">
+              Purchase: {{ item.purchaseRate | currency:'INR' }}
+            </span>
+          </div>
+<mat-form-field appearance="outline" class="price-override modern-select">
+  <mat-select [value]="selectedPriceKeyMap[item.itemCode] || defaultPriceKey(item)"
+              (selectionChange)="onPriceOverride(item, $event.value)">
+    <mat-option value="sales">Sales Rate</mat-option>
+    <mat-option value="wholesale">Wholesale Rate</mat-option>
+    <mat-option value="purchaseRate">Purchase Rate</mat-option>
+  </mat-select>
+</mat-form-field>
+
+        </td>
+      </ng-container>
+
+      <!-- Quantity -->
+        <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+<td mat-cell *matCellDef="let item">
+  <div class="qty-wrapper">
+   <button mat-icon-button class="qty-btn" (click)="decrement(item)" aria-label="decrement">
+  <span class="icon-text">−</span>
+</button>
+<div class="qty-display">{{ getCartQuantity(item) }}</div>
+<button mat-icon-button class="qty-btn" (click)="increment(item)" aria-label="increment">
+  <span class="icon-text">+</span>
+</button>
+
+  </div>
+</td>
+      </ng-container>
+
+
+      <!-- Stock -->
+      <ng-container matColumnDef="Stock">
+        <th mat-header-cell *matHeaderCellDef> Stock </th>
+        <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
+      </ng-container>
+
+    
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+
+  <!-- Checkout Button -->
+  <div class="checkout-section">
+    <button mat-raised-button color="accent" (click)="checkoutCart()" [disabled]="totalCount === 0">
+      Checkout
+    </button>
+  </div>
+</div>

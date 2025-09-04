@@ -1,0 +1,97 @@
+  <div class="container mt-4">
+    <div class="card shadow-lg p-4">
+      <h2 class="mb-3 text-center">Create Customer</h2>
+
+      <form [formGroup]="customerForm" (ngSubmit)="saveCustomer()"  >
+
+        <!-- Customer Name -->
+        <div class="mb-3">
+          <label for="customerName" class="form-label">Customer Name</label>
+          <input type="text" id="customerName" class="form-control"
+                formControlName="customerName">
+          <div class="text-danger" *ngIf="customerForm.get('customerName')?.invalid && customerForm.get('customerName')?.touched">
+            Name is required (min 3 chars)
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="mb-3">
+          <label for="mobile" class="form-label">Mobile No</label>
+          <input type="text" id="mobile" class="form-control"
+                formControlName="mobile">
+          <div class="text-danger" *ngIf="customerForm.get('mobile')?.invalid && customerForm.get('mobile')?.touched">
+            Must be 10 digits
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control"
+                formControlName="email">
+          <div class="text-danger" *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched">
+            Enter valid email
+          </div>
+        </div>
+
+        <!-- Area -->
+        <div class="mb-3">
+          <label for="area" class="form-label">Area</label>
+          <input type="text" id="area" class="form-control"
+                formControlName="area">
+          <div class="text-danger" *ngIf="customerForm.get('area')?.invalid && customerForm.get('area')?.touched">
+            Area is required
+          </div>
+        </div>
+
+        <!-- Customer Type -->
+        <div class="mb-3">
+          <label for="type" class="form-label">Customer Type</label>
+          <select id="type" class="form-select" formControlName="type">
+            <option value="" disabled>Select Type</option>
+            <option value="Retail">Retail</option>
+            <option value="Wholesale">Wholesale</option>
+          </select>
+          <div class="text-danger" *ngIf="customerForm.get('type')?.invalid && customerForm.get('type')?.touched">
+            Select a type
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="customerForm.invalid">
+          Create Customer
+        </button>
+      </form>
+    </div>
+  </div>
+ <!-- Live Customer List -->
+  <div class="card shadow-lg p-4 mt-4">
+    <h3 class="mb-3 text-center">Customer List</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Area</th>
+          <th>Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of customers; let i = index">
+          <td>{{ c.customerName }}</td>
+          <td>{{ c.mobile }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.area }}</td>
+          <td>{{ c.type }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteCustomer(i)">Delete</button>
+          </td>
+        </tr>
+     <tr *ngIf="customers?.length === 0">
+  <td colspan="6" class="text-center">No customers found</td>
+   </tr>
+      </tbody>
+    </table>
+  </div>
