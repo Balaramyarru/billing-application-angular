@@ -72,10 +72,10 @@ console.log("this.loginBO.password",this.loginBO.password);
     }
     const password = this.loginBO.password;
     this.commonservice.loginWithUserNameAndPass(this.loginBO).subscribe(res => {
-      if (res.code === 'SR') {
+      if (res.code == 'SR') {
         sessionStorage.setItem("userid", res.data);
         this.showMessage(`Login Sucessfull`, "info");
-
+console.log("loginWithUserNameAndPass",res.data)
         this.router.navigate(['/item-inventory']); 
 
       } else if(res.code == 'ER') {

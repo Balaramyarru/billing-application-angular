@@ -1,15 +1,15 @@
-<mat-card>
-  <h2>Firecracker Inventory</h2>
+<mat-card class="inventory-card">
+  <h2 class="title">Firecrackers Inventory</h2>
 
-  <form [formGroup]="inventoryForm" (ngSubmit)="addItem()" class="form-container">
+  <form [formGroup]="inventoryForm" (ngSubmit)="addItem()" class="form-grid">
     <mat-form-field appearance="outline">
       <mat-label>Item Name</mat-label>
-      <input matInput formControlName="itemName">
+      <input matInput formControlName="itemName" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Item Code</mat-label>
-      <input matInput formControlName="itemCode">
+      <input matInput formControlName="itemCode" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -32,56 +32,71 @@
       <input matInput type="number" formControlName="units">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!inventoryForm.valid">
-      Add Item
-    </button>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!inventoryForm.valid">
+        ➕ Add Item
+      </button>
+    </div>
   </form>
 </mat-card>
 
-<mat-card *ngIf="inventoryList.length > 0">
-  <h3>Inventory List</h3>
-  <table mat-table [dataSource]="inventoryList" class="mat-elevation-z8 full-width-table">
+<mat-card class="inventory-list-card">
+  <h3 class="subtitle">Inventory List</h3>
 
-    <ng-container matColumnDef="itemName">
-      <th mat-header-cell *matHeaderCellDef> Item Name </th>
-      <td mat-cell *matCellDef="let item"> {{ item?.itemName }} </td>
-    </ng-container>
+  <!-- Search Field -->
+  <mat-form-field appearance="outline" class="search-field modern-field">
+    <mat-label>Search Items</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Search by name or code">
+    <button *ngIf="searchControl.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchControl.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
 
-    <ng-container matColumnDef="itemCode">
-      <th mat-header-cell *matHeaderCellDef> Item Code </th>
-      <td mat-cell *matCellDef="let item"> {{ item?.itemCode }} </td>
-    </ng-container>
+  <!-- Table -->
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 full-width-table">
 
-    <ng-container matColumnDef="salesRate">
-      <th mat-header-cell *matHeaderCellDef> Sales Rate </th>
-      <td mat-cell *matCellDef="let item"> {{ item.salesRate }} </td>
-    </ng-container>
+      <!-- Item Name -->
+      <ng-container matColumnDef="itemName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Name </th>
+        <td mat-cell *matCellDef="let item"> {{ item?.itemName }} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="purchaseRate">
-      <th mat-header-cell *matHeaderCellDef> Purchase Rate </th>
-      <td mat-cell *matCellDef="let item"> {{ item.purchaseRate }} </td>
-    </ng-container>
+      <!-- Item Code -->
+      <ng-container matColumnDef="itemCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Code </th>
+        <td mat-cell *matCellDef="let item"> {{ item?.itemCode }} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="wholesaleRate">
-      <th mat-header-cell *matHeaderCellDef> Wholesale Rate </th>
-      <td mat-cell *matCellDef="let item"> {{ item.wholesaleRate }} </td>
-    </ng-container>
+      <!-- Sales Rate -->
+      <ng-container matColumnDef="salesRate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sales Rate </th>
+        <td mat-cell *matCellDef="let item"> {{ item?.salesRate }} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="units">
-      <th mat-header-cell *matHeaderCellDef> Units </th>
-      <td mat-cell *matCellDef="let item"> {{ item.quantity }} </td>
-    </ng-container>
+      <!-- Purchase Rate -->
+      <ng-container matColumnDef="purchaseRate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Rate </th>
+        <td mat-cell *matCellDef="let item"> {{ item?.purchaseRate }} </td>
+      </ng-container>
 
-    <!-- <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let item; let i = index">
-        <button mat-icon-button color="warn" (click)="deleteItem(i)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container> -->
+      <!-- Wholesale Rate -->
+      <ng-container matColumnDef="wholesaleRate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Wholesale Rate </th>
+        <td mat-cell *matCellDef="let item"> {{ item?.wholesaleRate }} </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <ng-container matColumnDef="units"> <th mat-header-cell *matHeaderCellDef> Units </th> <td mat-cell *matCellDef="let item"> {{ item.quantity }} </td> </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Pagination -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
 </mat-card>

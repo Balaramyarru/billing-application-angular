@@ -64,13 +64,12 @@ export class CommonService {
   }
 
   // ---------------- LOGIN ----------------
-  loginWithUserNameAndPass(login: loginBO): Observable<any> {
-    return this.http.post<ApiResponse<any>>(this.apiBaseURL + 'aadhyalogin/login', login)
-      .pipe(
-        map(res => res.data),
-        catchError(this.handleError)
-      );
-  }
+loginWithUserNameAndPass(login: loginBO): Observable<ApiResponse<any>> {
+  return this.http.post<ApiResponse<any>>(this.apiBaseURL + 'aadhyalogin/login', login)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 
   // ---------------- CUSTOMERS ----------------
   saveCustomer(customer: Customer): Observable<Customer> {
