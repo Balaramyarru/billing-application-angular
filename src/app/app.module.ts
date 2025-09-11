@@ -38,6 +38,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from "./header/header.component";
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   pbDirection: PB_DIRECTION.leftToRight,
@@ -103,11 +104,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule, // Required for formGroup
-    MatFormFieldModule,  // For mat-form-field
-    MatInputModule,      // For matInput
-    MatCardModule,       // For mat-card
-    MatButtonModule,     // For buttons
-    MatSnackBarModule,   // For snack bars
+    MatFormFieldModule, // For mat-form-field
+    MatInputModule, // For matInput
+    MatCardModule, // For mat-card
+    MatButtonModule, // For buttons
+    MatSnackBarModule, // For snack bars
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -126,14 +127,15 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MatSnackBarModule,
     MatCardModule,
     MatFormFieldModule,
-    MatToolbarModule, 
+    MatToolbarModule,
     FormsModule,
     MatSlideToggleModule,
     HttpClientModule,
-    RouterModule,   // Third-Party Modules
+    RouterModule, // Third-Party Modules
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
-  ],
+    HeaderComponent
+],
   providers: [],
   bootstrap: [AppComponent]
 })

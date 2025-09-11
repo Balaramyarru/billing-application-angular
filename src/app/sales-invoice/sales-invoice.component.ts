@@ -4,6 +4,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { CartBottomSheetComponent } from '../cart-bottom-sheet/cart-bottom-sheet.component';
 import { CartService } from '../Services/cart-service.service';
 import { CommonService, InventoryItem, Invoice } from '../Services/commonservices.service';
+import { Router } from '@angular/router';
 
 interface Item {
   itemName: string;
@@ -45,7 +46,8 @@ displayedColumns: string[] = ['name', 'code', 'price', 'quantity', 'Stock'];
   constructor(
     private bottomSheet: MatBottomSheet,
     private cartService: CartService,
-    private inventoryService: CommonService
+    private inventoryService: CommonService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -216,5 +218,9 @@ getSelectedPrice(item: InventoryItem): number {
         alert('Checkout failed. Please try again.');
       }
     });
+  }
+
+    navigateToLogin() {
+    this.router.navigate(['/login']); 
   }
 }

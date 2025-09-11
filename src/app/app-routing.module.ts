@@ -5,6 +5,7 @@ import { ItemInventoryComponent } from './item-inventory/item-inventory.componen
 import { CustomerCreationComponent } from './customer-creation/customer-creation.component';
 import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
 import { CheckoutConfirmDialogComponent } from './checkout-confirm-dialog/checkout-confirm-dialog.component';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [{ path: '', redirectTo: "login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [{ path: '', redirectTo: "login", pathMatch: "full" },
     { path: 'customer-creation', component: CustomerCreationComponent },
 { path: 'sales-invoice', component: SalesInvoiceComponent },
   { path: 'checkout-confirm', component: CheckoutConfirmDialogComponent },
+  { path: 'header', component: HeaderComponent },
 
 
 

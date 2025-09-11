@@ -2,3 +2,25 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --toolbar-height-desktop: 64px;
+  --toolbar-height-mobile: 56px;
+}
+
+/* Add spacing so content starts below header */
+.main-content {
+  margin-top: calc(var(--toolbar-height-desktop) + 16px);
+  padding: 16px;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .main-content {
+    margin-top: calc(var(--toolbar-height-mobile) + 14px);
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
